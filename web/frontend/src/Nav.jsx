@@ -16,20 +16,25 @@ const Nav = () => {
 
       <div className='text-pink-500 text-lg '>
         <ul className='flex flex-row space-x-16'>
+            <li className='text-gray-600 hover:text-pink-500 delay-200 hover:cursor-pointer'>
+            <Link to="/">Home</Link>
+            </li>
           <li className='text-gray-600 hover:text-pink-500 delay-200 hover:cursor-pointer'>
-          <Link to="/">Home</Link>
+            <Link to="/browse">
+            Browse
+            </Link>
           </li>
           <li className='text-gray-600 hover:text-pink-500 delay-200 hover:cursor-pointer'>
-          <Link to="/browse">
-          Browse
-          </Link>
+            <Link to="/login">
+              Login
+            </Link>
           </li>
-          <li className='text-gray-600 hover:text-pink-500 delay-200 hover:cursor-pointer'>Details</li>
           <li className='text-gray-600 hover:text-pink-500 delay-200 hover:cursor-pointer'>
-          <Link to="/profile">
-          Profile
-          </Link>
+            <Link to="/profile">
+            Profile
+            </Link>
           </li>
+         
         </ul>
       </div>
    </nav>

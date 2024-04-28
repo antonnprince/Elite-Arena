@@ -29,7 +29,11 @@ const Home = () => {
     <div className='bg-zinc-900 px-24 py-4 rounded-3xl'>
         <h1 className='text-white font-bold text-4xl'>My <span className='text-pink-400'>Tournaments</span></h1>
         <p className='text-white text-lg'>You currently have no tournaments going on</p>
-        <button className='bg-pink-500 text-white text-center px-4 py-2 font-bold rounded-full mx-[600px]'>Start Tournament</button>
+        <button className='bg-pink-500 text-white text-center px-4 py-2 font-bold rounded-full mx-[600px]'>
+          <Link to="/create">
+            Start Tournament
+          </Link>
+        </button>
     </div>
 
     {/* Most Popular Right Now */}
