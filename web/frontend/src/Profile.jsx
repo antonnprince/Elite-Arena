@@ -1,10 +1,31 @@
 import React from 'react'
 import avatar from "./images/avatar-03.jpg"
 import { Link } from 'react-router-dom'
-
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import 'firebase/auth';
+import { app, auth } from './config';
+import { useEffect, useState } from "react";
 
 const Profile = () => {
-  return (
+  const [user, setUser] = useState(null);
+  
+  useEffect(() => {
+    const auth = getAuth();
+
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        console.log(currentUser)
+        setUser(currentUser);
+      } else {
+        window.location.href = "/login"
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+
+  return (<>{user && 
     <div className='bg-zinc-800 rounded-3xl px-8 py-8 h-auto
    flex flex-col space-y-8
    h-screen
@@ -12,10 +33,10 @@ const Profile = () => {
           <h1 className='text-white text-3xl font-bold'><span className='text-pink-500'>Your</span> Profile</h1>
         <div className='bg-zinc-900 rounded-3xl p-4 flex flex-row'>
           
-                <img src={avatar} className='w-1/6 h-1/5 rounded-3xl'/>
+                <img src={user.photoURL} className='w-1/6 h-1/5 rounded-3xl'/>
 
                 <div className='flex flex-col'>
-                    <h1 className='text-2xl text-white font-semibold mt-2 mx-12'>Name: </h1>
+                    <h1 className='text-2xl text-white font-semibold mt-2 mx-12'>Name: {user.displayName}</h1>
                     <br />
 
                     <h2 className='text-2xl text-white font-semibold my-2 mx-12'><span className='text-pink-500'>
@@ -29,7 +50,7 @@ const Profile = () => {
                     </span>
                     0
                     </h2>
-                </div>
+                </div> 
         </div>  
 
         <div className='bg-zinc-900 px-24 py-4 rounded-3xl'>
@@ -53,6 +74,7 @@ const Profile = () => {
     </div>
       
     </div>
+}</> 
   )
 }
 

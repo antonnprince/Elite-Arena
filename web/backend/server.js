@@ -1,5 +1,5 @@
 import { MongoClient, ServerApiVersion } from 'mongodb';
-import express from 'express';
+import express, { response } from 'express';
 import cors from 'cors';
 let port = 3000
 
@@ -98,7 +98,7 @@ app.post('/join_team', async (req, res) => {
 });
 
 app.post('/create_game', async (req, res) => {
-  const { name, team, ppt, organizer, reglastdate, startdate, maxteams, prizes } = req.body;
+  const { name, team, ppt, organizer, reglastdate, startdate, maxteams, prizes, image } = req.body;
 
   const collection = connect()
   
@@ -106,6 +106,17 @@ app.post('/create_game', async (req, res) => {
   if (existingEvent) {
     return res.status(400).json({ error: 'Event with this name already exists' });
   }
+
+  const url = "https://api.imgbb.com/1/upload"
+    
+  const payload = {
+        "key": "aa0696eab1a460991ba67d2ed95e2602",
+        "image": image,
+        "expiration":2592000
+    }
+    
+    const response = fetch(url, payload)
+    image = response.data.url
 
   const newGame = {
     name,
@@ -116,7 +127,8 @@ app.post('/create_game', async (req, res) => {
     reglastdate,
     startdate,
     maxteams,
-    prizes
+    prizes,
+    image
   };
 
   await collection.insertOne(newGame);  
