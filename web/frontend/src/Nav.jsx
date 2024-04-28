@@ -1,51 +1,117 @@
 import React from 'react'
-import "./css/all.min.css"
-import 'bootstrap/dist/css/bootstrap.min.css';
-import "./css/master.css"
+import './css/style.css'// Assuming you still need custom styles
 
 const Nav = () => {
   return (
-    <div>
-       <header className="w-100 position-absolute start-0 top-lg-0">
-            <div className="container">
-                <div className="row">
-                    <div className="col-12">
-                        <div className="content d-flex align-items-center rounded-pill bg-transparent">
-                            <a href="index.html" className="logo d-block">
-                                <img src="images/mainlogo.png" alt=""/>
-                            </a>
-                           
-                            <div className="linkes mt-0 position-relative">
-                                <ul className="m-0 p-0 d-flex justify-content-end align-items-center">
-                                    <li>
-                                        <a className="active" href="index.html">Home</a>
-                                    </li>
-                                    <li>
-                                        <a href="browse.html">Browse</a>
-                                    </li>
-                                    <li>
-                                        <a href="details.html">Details</a>
-                                    </li>
-                                    
-                                    <li>
-                                        <a href="profile.html" className="rounded-pill">
-                                            Profile
-                                            <img src="images/profile-header.jpg" className="rounded-circle" alt=""/>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+    <header className="header">
 
-                            <div className="menu position-absolute d-block d-lg-none">
-                                <span className="d-block position-relative top-50 translate-middle-y"></span>
-                            </div>
+   
+    <div className="overlay" data-overlay></div>
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
+    <div className="container">
+
+      <a href="#" className="logo">
+        <img src="./assets/images/logo.svg" alt="GameX logo"/>
+      </a>
+
+      <button className="nav-open-btn" data-nav-open-btn>
+        <ion-icon name="menu-outline"></ion-icon>
+      </button>
+
+      <nav className="navbar" data-nav>
+
+        <div className="navbar-top">
+
+          <a href="#" className="logo">
+            <img src="./assets/images/logo.svg" alt="GameX logo"/>
+          </a>
+
+          <button className="nav-close-btn" data-nav-close-btn>
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+
+        </div>
+
+        <ul className="navbar-list">
+
+          <li>
+            <a href="#hero" className="navbar-link">Home</a>
+          </li>
+
+          <li>
+            <a href="#about" className="navbar-link">About</a>
+          </li>
+
+          <li>
+            <a href="#tournament" className="navbar-link">Tournament</a>
+          </li>
+
+          <li>
+            <a href="#team" className="navbar-link">Team</a>
+          </li>
+
+          <li>
+            <a href="#gears" className="navbar-link">Gears</a>
+          </li>
+
+          <li>
+            <a href="#contact" className="navbar-link">Contact</a>
+          </li>
+
+        </ul>
+
+        <ul className="nav-social-list">
+
+          <li>
+            <a href="#" className="social-link">
+              <ion-icon name="logo-twitter"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" className="social-link">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" className="social-link">
+              <ion-icon name="logo-github"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" className="social-link">
+              <ion-icon name="logo-youtube"></ion-icon>
+            </a>
+          </li>
+
+        </ul>
+
+      </nav>
+
+      <div className="header-actions">
+
+        <button className="search">
+          <ion-icon name="search-outline"></ion-icon>
+        </button>
+
+        <button className="btn-sign_in">
+
+          <div className="icon-box">
+            <ion-icon name="log-in-outline"></ion-icon>
+          </div>
+
+          <span>Log-in</span>
+
+        </button>
+
+      </div>
+
     </div>
+
+  </header>
+
   )
 }
 
