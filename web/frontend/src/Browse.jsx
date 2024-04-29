@@ -1,9 +1,9 @@
 import React from 'react'
 import tourn from "./images/popular-07.jpg"
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import 'firebase/auth';
-import { app, auth } from './config';
-import { useEffect, useState } from "react";
+// import { getAuth, onAuthStateChanged } from 'firebase/auth';
+// import 'firebase/auth';
+// import { app, auth } from './config';
+// import { useEffect, useState } from "react";
 const Browse = () => {
   const [user, setUser] = useState(null);
   const [data, setData] = useState(null);

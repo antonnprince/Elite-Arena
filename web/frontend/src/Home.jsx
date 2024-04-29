@@ -1,27 +1,29 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import 'firebase/auth';
-import { app, auth } from './config';
+// import { getAuth, onAuthStateChanged } from 'firebase/auth';
+// import 'firebase/auth';
+// import { app, auth } from './config';
 import { useEffect, useState } from "react";
 const Home = () => {
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
   
-  useEffect(() => {
-    const auth = getAuth();
+  // useEffect(() => {
+  //   const auth = getAuth();
 
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        console.log(currentUser)
-        setUser(currentUser);
-      } else {
-        window.location.href = "/login"
-      }
-    });
+  //   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+  //     if (currentUser) {
+  //       console.log(currentUser)
+  //       setUser(currentUser);
+  //     } else {
+  //       window.location.href = "/login"
+  //     }
+  //   });
 
-    return () => unsubscribe();
-  }, []);
-  return (<>{user &&
+  //   return () => unsubscribe();
+  // }, []);
+
+  return (
+    <>
    <div className='bg-zinc-800 rounded-3xl px-8 py-4 h-auto
    flex flex-col space-y-8
    '>
@@ -63,7 +65,7 @@ const Home = () => {
         <button className='bg-pink-500 text-white text-center px-4 py-2 font-bold rounded-full mx-[600px]'>Start Tournament</button>
     </div>
    </div>
-   }</>
+   </>
   )
 }
 
