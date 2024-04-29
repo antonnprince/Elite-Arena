@@ -65,7 +65,7 @@ const Home = () => {
         <button className='bg-pink-500 text-white text-center px-4 py-2 font-bold rounded-full mx-[600px]'>Start Tournament</button>
     </div>
    </div>
-   }</>
+   </>
   )
 }
 

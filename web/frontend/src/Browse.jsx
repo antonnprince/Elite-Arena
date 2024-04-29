@@ -25,7 +25,7 @@ const Browse = () => {
 
   return (
     <>
-    {user && <>
+     <>
     <h1 className='text-4xl text-white font-bold'><span className='text-pink-500 text-center'>Live</span> Tournaments</h1>
     <div className='flex flex-row flex-wrap space-x-4 space-y-8 h-full mx-24'>
       <br/>
@@ -42,7 +42,7 @@ const Browse = () => {
     }
      
     </div>
-    </>}</>
+    </></>
   )
 }
 
