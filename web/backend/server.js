@@ -35,7 +35,7 @@ app.get('/get_all_events', async (req, res) => {
   const collection = await connect()
   const cursor = collection.find({})
   const result = await cursor.toArray();
-  res.status(200).send(result);
+  res.status(200).send({"data":result});
 });
 
 app.post('/get_my_participations', async (req, res) => {
