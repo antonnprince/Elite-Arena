@@ -1,7 +1,30 @@
 import React, { useState } from 'react';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import 'firebase/auth';
+import { app, auth } from './config';
+import { useEffect } from "react";
 
 const CreateTournament = () => {
+    const [user, setUser] = useState(null);
+  
+    useEffect(() => {
+      const auth = getAuth();
+  
+      const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        if (currentUser) {
+          console.log(currentUser)
+          setUser(currentUser);
+        } else {
+          window.location.href = "/login"
+        }
+      });
+  
+      return () => unsubscribe();
+    }, []);
+
     const [gameName, setgameName] = useState("");
+    const[eventName,setEventName]=useState("");
+    const [poster, setPoster] = useState(null)
     const [size, setSize] = useState(1);
     const [prizes, setPrizes] = useState({ first: "", second: "", third: "" });
     const [limit, setLimit] = useState(1);
@@ -32,17 +55,41 @@ const CreateTournament = () => {
         setPrizes({ ...prizes, third: e.target.value });
     };
 
-    const handleSubmit=(e)=>{
-        const Result = {
-            gameName,
-            size,
-            prizes,
-            limit,
-            regDate,
-            tourDate
-        }
-        e.preventDefault()
-        console.log(Result)
+    const handleFileChange = (event) => {
+        // Get the selected file
+        const file = event.target.files[0];
+
+        // Create a new FileReader instance
+        const reader = new FileReader();
+
+        // Read the file as a Data URL (Base64)
+        reader.readAsDataURL(file);
+
+        // Set up a listener for when the file is loaded
+        reader.onload = () => {
+            // Set the Base64 string as the value of the state
+            setPoster(reader.result);
+        };
+    };
+    const handleSubmit=(e)=>{ 
+            if(!eventName || !poster || !gameName|| !regDate || !tourDate)
+             alert("Enter the requierd fields")
+        
+            else{
+                const Result = {
+                    eventName,
+                    poster,
+                    gameName,
+                    size,
+                    prizes,
+                    limit,
+                    regDate,
+                    tourDate
+                }
+                e.preventDefault()
+                console.log(Result)
+            }
+        
     }
 
     return (
@@ -58,7 +105,19 @@ const CreateTournament = () => {
             </h1>
             <form className='flex flex-col mx-56 text-pink-500 font-semibold text-2xl space-y-10 py-24'>
                 <div className=' font-normal space-y-2 space-x-4'>
-                    <h2 className='text-3xl font-normal text-white  ml-4'>Game Used</h2>
+                    <h2 className='text-3xl font-normal text-white  ml-4'>Event Name <span className='text-pink-500'>*</span></h2>
+                    <input type='text' className='px-8 py-2 rounded-full' onChange={(e) => setEventName(e.target.value)} />
+                </div>
+
+                <div className=' font-normal space-y-2 space-x-4'>
+                    <h2 className='text-3xl font-normal text-white  ml-4'>Add poster <span className='text-pink-500'>*</span></h2>
+                    <input type='file'
+                    accept="image/jpeg, image/jpg"
+                     className='px-8 py-2 rounded-full' onChange={handleFileChange} />
+                </div>
+
+                <div className=' font-normal space-y-2 space-x-4'>
+                    <h2 className='text-3xl font-normal text-white  ml-4'>Game Used <span className='text-pink-500'>*</span></h2>
                     <input type='text' className='px-8 py-2 rounded-full' onChange={(e) => setgameName(e.target.value)} />
                 </div>
                 <div className='font-normal space-y-2 space-x-4'>
@@ -78,15 +137,15 @@ const CreateTournament = () => {
                     <input type='text' className='px-8 py-2 rounded-full' onChange={handleThirdPrize} />
                 </div>
                 <div className=' font-normal space-y-2 space-x-4'>
-                    <h2 className='text-3xl text-white  ml-4'>Team Limit <span className='text-pink-500'>(Max number of teams)</span></h2>
+                    <h2 className='text-3xl text-white  ml-4'>Team Limit <span className='text-pink-500'>*(Max number of teams)</span></h2>
                     <input type='number' className='px-8 py-2 rounded-full' onChange={handleLimit} value={limit} />
                 </div>
                 <div className=' font-normal space-y-2 space-x-4'>
-                    <h2 className='text-3xl text-white  ml-4'>Registration End Date</h2>
+                    <h2 className='text-3xl text-white  ml-4'>Registration End Date <span className='text-pink-500'>*</span></h2>
                     <input type='date' className='px-8 py-2 rounded-full' onChange={(e)=>{setRegDate(e.target.value)}} />
                 </div>
                 <div className=' font-normal space-y-2 space-x-4'>
-                    <h2 className='text-3xl text-white  ml-4'>Tournament Start Date</h2>
+                    <h2 className='text-3xl text-white  ml-4'>Tournament Start Date <span className='text-pink-500'>*</span></h2>
                     <input type='date' className='px-8 py-2 rounded-full'
                     onChange={(e)=>{setTourDate(e.target.value)}} />
                 </div>
