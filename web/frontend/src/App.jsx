@@ -13,7 +13,7 @@ function App() {
       <div className="bg-zinc-900 h-full w-screen px-32"> 
         <Routes>
             <Route path="/" element={<Nav />}>
-              <Route index element={<Home />} />
+              <Route path="/" element={<Home />} />
               <Route path="/browse" element={<Browse />} />
               <Route path="/profile" element={<Profile/>}/>
               <Route path="/login" element={<Login/>}/>

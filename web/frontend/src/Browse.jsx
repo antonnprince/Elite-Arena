@@ -1,8 +1,26 @@
 import React from 'react'
 import tourn from "./images/popular-07.jpg"
-
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import 'firebase/auth';
+import { app, auth } from './config';
+import { useEffect, useState } from "react";
 const Browse = () => {
+  const [user, setUser] = useState(null);
+  
+  useEffect(() => {
+    const auth = getAuth();
 
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        console.log(currentUser)
+        setUser(currentUser);
+      } else {
+        window.location.href = "/login"
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
   const count=[1,2,3,4,5,6,7,8,9,10]
 
   return (

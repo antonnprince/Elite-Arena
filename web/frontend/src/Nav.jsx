@@ -1,9 +1,31 @@
 import React from 'react'
 import logo from './images/mainlogo.png'
 import {Outlet, Link} from "react-router-dom"
-
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import 'firebase/auth';
+import { app, auth } from './config';
+import { useEffect, useState } from "react";
 const Nav = () => {
+  const [user, setUser] = useState(null);
+  
+  useEffect(() => {
+    const auth = getAuth();
 
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        console.log(currentUser)
+        setUser(currentUser);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const handleSignOut = () => {
+    auth.signOut().then(() => {
+      window.location.href = "/login"
+    });
+  };
   // handleColor=()=>{
 
   // }
@@ -24,11 +46,18 @@ const Nav = () => {
             Browse
             </Link>
           </li>
-          <li className='text-gray-600 hover:text-pink-500 delay-200 hover:cursor-pointer'>
+          {!user && <li className='text-gray-600 hover:text-pink-500 delay-200 hover:cursor-pointer'>
             <Link to="/login">
               Login
             </Link>
-          </li>
+            
+          </li>}
+          {user && <li className='text-gray-600 hover:text-pink-500 delay-200 hover:cursor-pointer'>
+            <Link onClick={handleSignOut}>
+              Logout
+            </Link>
+            
+          </li>}
           <li className='text-gray-600 hover:text-pink-500 delay-200 hover:cursor-pointer'>
             <Link to="/profile">
             Profile
