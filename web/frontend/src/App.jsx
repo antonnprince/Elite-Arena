@@ -10,7 +10,7 @@ import JoinTournament from "./JoinTournament";
 function App() {
   return (
     <BrowserRouter>
-      <div className="bg-zinc-900 h-full w-screen px-32"> 
+      <div className="bg-zinc-900 w-screen px-32" style={{overflowX:"hidden"}}> 
         <Routes>
             <Route path="/" element={<Nav />}>
               <Route path="/" element={<Home />} />
