@@ -3,6 +3,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import 'firebase/auth';
 import { app, auth } from './config';
 import { useEffect } from "react";
+import axios from "axios"
 
 const CreateTournament = () => {
     const [user, setUser] = useState(null);
@@ -24,12 +25,12 @@ const CreateTournament = () => {
 
     const [gameName, setgameName] = useState("");
     const[eventName,setEventName]=useState("");
-    const [poster, setPoster] = useState(null)
+    const [poster, setPoster] = useState("")
     const [size, setSize] = useState(1);
-    const [prizes, setPrizes] = useState({ first: "", second: "", third: "" });
+    const [prizes, setPrizes] = useState({ "first": "", "second": "", "third": "" });
     const [limit, setLimit] = useState(1);
-    const [regDate,setRegDate] = useState('');
-    const [tourDate, setTourDate] = useState('');
+    const [regDate,setRegDate] = useState("");
+    const [tourDate, setTourDate] = useState("");
 
     const handleNumber = (e) => {
         if (e.target.value > 0) {
@@ -72,27 +73,49 @@ const CreateTournament = () => {
         };
     };
     const handleSubmit=(e)=>{ 
+        e.preventDefault()
             if(!eventName || !poster || !gameName|| !regDate || !tourDate)
              alert("Enter the requierd fields")
         
-            else{
-                const Result = {
-                    eventName,
-                    poster,
-                    gameName,
-                    size,
-                    prizes,
-                    limit,
-                    regDate,
-                    tourDate
-                }
-                e.preventDefault()
-                console.log(Result)
+            else
+            sendData()
             }
         
+    
+
+            const sendData = async () => {
+    try {
+        const Result = {
+            "name": eventName,
+            "team": true,
+            "organizer": user.displayName,
+            "image": poster,
+            "game": gameName,
+            "maxteams": size,
+            "prizes": prizes,
+            "ppt": limit,
+            "reglastdate": regDate,
+            "startdate": tourDate
+        };
+
+        const requestOptions = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json" // Specify that the body is JSON
+            },
+            body: JSON.stringify(Result) // Convert JavaScript object to JSON string
+        };
+
+        const response = await fetch('http://localhost:3000/create_game', requestOptions);
+        console.log(response);
+        console.log(Result);
+    } catch (error) {
+        console.log(error);
     }
+};
 
     return (
+        
         <div className='bg-zinc-900 w-full h-full'>
             
             <h1 className='text-4xl text-white font-bold '>
