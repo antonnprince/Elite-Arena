@@ -27,13 +27,10 @@ const Home = () => {
    <div className='bg-zinc-800 rounded-3xl px-8 py-4 h-auto
    flex flex-col space-y-8
    '>
-   
       <div className='bg-[url("src/images/banner-bg.jpg")]
-      bg-no-repeat bg-contain
+      bg-no-repeat bg-cover rounded-3xl
       h-3/4
-      w-[1500px]
-      ml-[170px]
-      '>
+      ' style={{width:"100%"}}>
           <div className='my-12 ml-4'>
             <h6 className='text-white font-normal text-2xl text-left mx-20'>Welcome to Elite Arena</h6>
             <h1 className='mt-14 font-bold text-white text-5xl text-left mx-20'>BROWSE AND ORGANISE<br/> TOURNAMENTS</h1>
