@@ -21,7 +21,7 @@ const Home = () => {
 
     return () => unsubscribe();
   }, []);
-  return (
+  return (<>{user &&
    <div className='bg-zinc-800 rounded-3xl px-8 py-4 h-auto
    flex flex-col space-y-8
    '>
@@ -63,6 +63,7 @@ const Home = () => {
         <button className='bg-pink-500 text-white text-center px-4 py-2 font-bold rounded-full mx-[600px]'>Start Tournament</button>
     </div>
    </div>
+   }</>
   )
 }
 
