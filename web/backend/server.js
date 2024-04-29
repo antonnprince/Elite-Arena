@@ -1,14 +1,15 @@
-import { MongoClient, ServerApiVersion } from 'mongodb';
-import express, { response } from 'express';
-import cors from 'cors';
+const express = require('express');
+const cors = require('cors');
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const bodyParser =  require("body-parser")
 let port = 3000
 
 
 
 
 const app = express();
-
-app.use(cors({origin: "*"}));
+app.use(bodyParser.json())
+app.use(cors({origin:"*"}));
 
 async function connect(){
   const uri = "mongodb+srv://mishal0404:mishal2003@mishal0404.35lsnon.mongodb.net/?retryWrites=true&w=majority";
@@ -40,7 +41,7 @@ app.get('/get_all_events', async (req, res) => {
 app.post('/get_my_participations', async (req, res) => {
   username = req.body.username
   
-  const collection = connect()
+  const collection = await connect()
   const cursor = collection.find({ 'participants.name': username })
   const result = await cursor.toArray();
   res.status(200).send(result);
@@ -49,7 +50,7 @@ app.post('/get_my_participations', async (req, res) => {
 app.post('/create_team', async (req, res) => {
   const { eventName, teamName, username } = req.body
 
-  const collection = connect()
+  const collection = await connect()
   
   const event = await collection.findOne({ name: eventName });
 
@@ -75,7 +76,7 @@ app.post('/create_team', async (req, res) => {
 app.post('/join_team', async (req, res) => {
   const { eventName, teamName, username } = req.body
 
-  const collection = connect()
+  const collection = await connect()
   
   const event = await collection.findOne({ name: eventName });
 
@@ -98,26 +99,17 @@ app.post('/join_team', async (req, res) => {
 });
 
 app.post('/create_game', async (req, res) => {
-  const { name, team, ppt, organizer, reglastdate, startdate, maxteams, prizes, image } = req.body;
-
-  const collection = connect()
+  console.log(req.body)
+  const { name, team, ppt, organizer, reglastdate, startdate, maxteams, prizes, image, game } = req.body;
+  console.log(name)
+  const collection = await connect()
   
   const existingEvent = await collection.findOne({ name });
   if (existingEvent) {
     return res.status(400).json({ error: 'Event with this name already exists' });
   }
 
-  const url = "https://api.imgbb.com/1/upload"
-    
-  const payload = {
-        "key": "aa0696eab1a460991ba67d2ed95e2602",
-        "image": image,
-        "expiration":2592000
-    }
-    
-    const response = fetch(url, payload)
-    image = response.data.url
-
+  
   const newGame = {
     name,
     team,
@@ -128,7 +120,8 @@ app.post('/create_game', async (req, res) => {
     startdate,
     maxteams,
     prizes,
-    image
+    image,
+    game
   };
 
   await collection.insertOne(newGame);  
