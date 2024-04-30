@@ -41,14 +41,14 @@ const Browse = () => {
   return (
     <>
     {user && data && <>
-    <h1 className='text-4xl text-white font-bold'><span className='text-pink-500 text-center'>Live</span> Tournaments</h1>
+    <h1 className='text-4xl text-white font-bold'><span className='text-pink-500 text-center'>Current</span> Tournaments</h1>
     <div className='flex flex-row flex-wrap space-x-4 space-y-8 h-full mx-24'>
       <br/>
     {
-      data.map((each,index)=>{
+      data.map((each)=>{
         return(
           <div className='flex-col' key={data._id}>
-          <img src={each.image} key={each._id} className='w-42 h-56 rounded-xl my-4'/>
+          <img src={each.image} key={each._id} className='w-42 h-56 rounded-xl my-4 w-max-56'/>
           <h4 className='text-white font-normal text-xl'>{each.name}</h4>
           <>
         <button
@@ -89,11 +89,7 @@ const Browse = () => {
                 {/*body*/}
                 <div className="relative p-6 flex-auto bg-zinc-800 text-white mx-4 rounded-3xl">
                   <p className="my-4 text-blueGray-500 text-lg leading-relaxed flex flex-col">
-                    I always felt like I could do anything. That’s the main
-                    thing people are controlled by! Thoughts- their perception
-                    of themselves! They're slowed down by their perception of
-                    themselves. If you're taught you can’t do anything, you
-                    won’t do anything. I was taught I could do everything.
+                    {focus.description}
                   </p>
                   <h4 className='text-white font-semibold'><span className='text-pink-500'>Max teams allowed:</span>{focus.maxteams} </h4>
                   <h4 className='text-white font-semibold'><span className='text-pink-500'>Game used:</span>{focus.game} </h4>

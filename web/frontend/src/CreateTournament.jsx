@@ -31,6 +31,7 @@ const CreateTournament = () => {
     const [limit, setLimit] = useState(1);
     const [regDate,setRegDate] = useState("");
     const [tourDate, setTourDate] = useState("");
+    const [des,setDes]=useState("")
 
     const handleNumber = (e) => {
         if (e.target.value > 0) {
@@ -95,7 +96,8 @@ const CreateTournament = () => {
             "prizes": prizes,
             "ppt": limit,
             "reglastdate": regDate,
-            "startdate": tourDate
+            "startdate": tourDate,
+            "description":des
         };
 
         const requestOptions = {
@@ -144,6 +146,12 @@ const CreateTournament = () => {
                     <h2 className='text-3xl font-normal text-white  ml-4'>Game Used <span className='text-pink-500'>*</span></h2>
                     <input type='text' className='px-8 py-2 rounded-full' onChange={(e) => setgameName(e.target.value)} />
                 </div>
+                
+                <div className=' font-normal space-y-2 space-x-4'>
+                    <h2 className='text-3xl font-normal text-white  ml-4'>Enter event description <span className='text-pink-500'>*</span></h2>
+                    <input type='text' className='px-8 py-2 rounded-full' onChange={(e) => setDes(e.target.value)} />
+                </div>
+
                 <div className='font-normal space-y-2 space-x-4'>
                     <h2 className='text-3xl text-white  ml-4'>Team Size <span className='text-pink-500'>(Participants per team)</span></h2>
                     <input type='number' onChange={handleNumber} value={size} className='px-8 py-2 rounded-full' />
