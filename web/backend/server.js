@@ -101,7 +101,7 @@ app.post('/join_team', async (req, res) => {
 
 app.post('/create_game', async (req, res) => {
   console.log(req.body)
-  const { name, team, ppt, organizer, reglastdate, startdate, maxteams, prizes, image, game } = req.body;
+  const { name, team, ppt, organizer, reglastdate, startdate, description ,maxteams, prizes, image, game } = req.body;
   console.log(name)
   const collection = await connect()
   const body = new FormData()
@@ -135,6 +135,7 @@ app.post('/create_game', async (req, res) => {
     participants: [],
     reglastdate,
     startdate,
+    description,
     maxteams,
     prizes,
     image:newimage,
@@ -142,7 +143,7 @@ app.post('/create_game', async (req, res) => {
   };
 
   await collection.insertOne(newGame);  
-  
+
   return res.status(200).json({ message: 'Event created successfully' });
 });
 
