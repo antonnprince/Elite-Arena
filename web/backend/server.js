@@ -103,7 +103,16 @@ app.post('/create_game', async (req, res) => {
   const { name, team, ppt, organizer, reglastdate, startdate, maxteams, prizes, image, game } = req.body;
   console.log(name)
   const collection = await connect()
+  const response = await fetch('https://api.imgbb.com/1/upload?expiration=300000&key=c5e552954a298ee10800c6bd21d66427', {
+  method: 'POST',
+  body: new FormData().append('image', image)
+  })
+
+  const jres = response.json()
+  const newimage = jres.data.image
   
+
+
   const existingEvent = await collection.findOne({ name });
   if (existingEvent) {
     return res.status(400).json({ error: 'Event with this name already exists' });
@@ -120,7 +129,7 @@ app.post('/create_game', async (req, res) => {
     startdate,
     maxteams,
     prizes,
-    image,
+    image:newimage,
     game
   };
 
