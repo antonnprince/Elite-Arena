@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const Razorpay = require('razorpay');  
 const bodyParser =  require("body-parser")
 let port = 3000
 
@@ -57,27 +58,49 @@ app.post('/get_my_tournaments', async (req,res)=>{
 
 app.post('/create_team', async (req, res) => {
   const { eventName, teamName, username } = req.body
-
+  console.log(eventName, teamName, username)
   const collection = await connect()
   
   const event = await collection.findOne({ name: eventName });
+  const razorpayInstance = new Razorpay({ 
+  
+    // Replace with your key_id 
+    key_id: event.key, 
+  
+    // Replace with your key_secret 
+    key_secret: event.secret 
+  }); 
+
 
   const currentDate = new Date();
   const registrationDeadline = new Date(event.reglastdate);
-  if (currentDate > registrationDeadline) {
-    return res.status(400).json({ error: 'Registration deadline has passed' });
-  }
 
   const existingTeam = event.participants.find(participant => participant.team === teamName);
   if (existingTeam) {
     return res.status(400).json({ error: 'Team already exists for this event' });
   }
-
+  console.log("sdfsdfsdfsf")
   const newParticipant = { name: username, team: teamName };
   await collection.updateOne({ name: eventName }, { $push: { participants: newParticipant } });
-  
+  console.log("1222222")
+  if (event.fee>0){
+    console.log("yojojon")
+    const amount = event.fee 
+    const currency = "INR"
+    const receipt = "payment done"
+    const notes = {"name":event.name}
+    razorpayInstance.orders.create({amount, currency, receipt, notes},  
+      (err, order)=>{ 
 
-  res.status(200).json({ message: 'User added to the team successfully' });
+        if(!err) 
+          res.status(200).json(order) 
+        else
+        res.status(400).send(err); 
+      } 
+    ) 
+  }
+
+  console.log("llllllllll")
 });
 
 
@@ -108,7 +131,7 @@ app.post('/join_team', async (req, res) => {
 
 app.post('/create_game', async (req, res) => {
   console.log(req.body)
-  const { name, team, ppt, organizer, reglastdate, startdate, description ,maxteams, prizes, image, game } = req.body;
+  const { name, team, ppt, organizer, reglastdate, startdate, description ,maxteams, prizes, image, game, fee, key, secret } = req.body;
   console.log(name)
   const collection = await connect()
   const body = new FormData()
@@ -146,7 +169,10 @@ app.post('/create_game', async (req, res) => {
     maxteams,
     prizes,
     image:newimage,
-    game
+    game,
+    fee,
+    key,
+    secret
   };
 
   await collection.insertOne(newGame);  
