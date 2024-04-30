@@ -109,6 +109,7 @@ const CreateTournament = () => {
         const response = await fetch('http://localhost:3000/create_game', requestOptions);
         console.log(response);
         console.log(Result);
+        window.location.href = "/browse"
     } catch (error) {
         console.log(error);
     }

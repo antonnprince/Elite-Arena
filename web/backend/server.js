@@ -8,7 +8,8 @@ let port = 3000
 
 
 const app = express();
-app.use(bodyParser.json())
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(cors({origin:"*"}));
 
 async function connect(){
@@ -103,13 +104,20 @@ app.post('/create_game', async (req, res) => {
   const { name, team, ppt, organizer, reglastdate, startdate, maxteams, prizes, image, game } = req.body;
   console.log(name)
   const collection = await connect()
-  const response = await fetch('https://api.imgbb.com/1/upload?expiration=300000&key=c5e552954a298ee10800c6bd21d66427', {
+  const body = new FormData()
+  const kimage = image.replace("data:image/jpeg;base64,","")
+  body.append('image', kimage)
+  body.append("key","c5e552954a298ee10800c6bd21d66427")
+  body.append("expiration","300000")
+  const response = await fetch('https://api.imgbb.com/1/upload', {
   method: 'POST',
-  body: new FormData().append('image', image)
+  body: body
   })
 
-  const jres = response.json()
-  const newimage = jres.data.image
+  const jres = await response.json()
+
+  console.log(jres)
+  const newimage = jres.data.url
   
 
 
@@ -134,8 +142,8 @@ app.post('/create_game', async (req, res) => {
   };
 
   await collection.insertOne(newGame);  
-
-  res.status(200).json({ message: 'Event created successfully' });
+  
+  return res.status(200).json({ message: 'Event created successfully' });
 });
 
 
