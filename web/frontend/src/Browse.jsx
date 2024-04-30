@@ -4,29 +4,45 @@ import tourn from "./images/popular-07.jpg"
  import 'firebase/auth';
 import { app, auth } from './config';
  import { useEffect, useState } from "react";
+ import useRazorpay from "react-razorpay";
+import  axios from "axios"
+
 const Browse = () => {
+  const [Razorpay] = useRazorpay();
   const [user, setUser] = useState(null);
   const [data, setData] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [focus, setFocus] = useState(null)
+  const [teamname, setTeamname] = useState("")
+  const [mygames, setMygames] = useState([])
   
-  const getdata = async () =>{
+  const getdata = async (user) =>{
     const response = await fetch("http://localhost:3000/get_all_events", {
       method: "GET",
     });
 
     const datak = await response.json()
     setData(datak.data)
+    for (var i in datak.data){
+      for (var j in datak.data[i].participants){
+        if (user.displayName==datak.data[i].participants[j].name){
+          console.log(datak.data[i].name)
+          setMygames(...mygames, datak.data[i].name)
+          continue
+        }
+      }
+    }
     console.log(datak.data)
   }
   useEffect(() => {
     const auth = getAuth();
-
+    
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         console.log(currentUser)
-        getdata()
         setUser(currentUser);
+
+        getdata(currentUser)
       } else {
         window.location.href = "/login"
       }
@@ -36,6 +52,44 @@ const Browse = () => {
 
     return () => unsubscribe();
   }, []);
+
+  const handlecreate = async (event)=>{
+    const response = await axios.post("http://localhost:3000/create_team",{username:user.displayName,eventName:event.name,teamName:teamname})
+    console.log(response)
+      const order = response.data
+      console.log(order.amount)
+      var options = { 
+        "key": event.key,  
+        "amount": "40",  
+        "currency": "INR", 
+        "name": event.name, 
+        "description": "Pay & Checkout this Course, Upgrade your DSA Skill", 
+         "image": "https://media.geeksforgeeks.org/wp-content/uploads/20210806114908/dummy-200x200.png", 
+        "order_id": order.id,   
+        "handler": function (response){ 
+            window.location.href="/browse" 
+        }, 
+        "prefill": { 
+           //Here we are prefilling random contact 
+          "contact":"9876543210",  
+            //name and email id, so while checkout 
+          "name": "Twinkle Sharma",   
+          "email": "smtwinkle@gmail.com"
+        }, 
+       "notes" : { 
+          "description":"Best Course for SDE placements", 
+          "language":"Available in 4 major Languages JAVA, C/C++, Python, Javascript", 
+          "access":"This course have Lifetime Access" 
+        },  
+        "theme": { 
+            "color": "#2300a3" 
+        } 
+      }; 
+
+      const rzpay = new Razorpay(options);
+      rzpay.open();
+
+  }
   
 
   return (
@@ -110,13 +164,21 @@ const Browse = () => {
                   >
                     Close
                   </button>
+                  {!mygames.includes(each.name) ? <><input placeholder='Team name' value={teamname} onChange={(e)=>setTeamname(e.target.value)}></input>
                   <button
                     className="bg-pink-500 text-white rounded-full active:bg-emerald-600 font-bold uppercase text-sm px-6 py-2  shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => setShowModal(false)}
+                    onClick={() => handlecreate(each)}
                   >
-                    Join Tournament
+                    create Team
                   </button>
+                  <button
+                    className="bg-pink-500 text-white rounded-full active:bg-emerald-600 font-bold uppercase text-sm px-6 py-2  shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => handlejoin()}
+                  >
+                    join Team
+                  </button></>:<><button disabled>Already Joined</button></>}
                 </div>
               </div>
             </div>

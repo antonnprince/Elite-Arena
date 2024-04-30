@@ -22,10 +22,10 @@ const JoinTournament = () => {
       return () => unsubscribe();
     }, []);
 
-
+    
   return (
     <div>
-      
+      <button></button>
     </div>
   )
 }
