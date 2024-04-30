@@ -41,12 +41,19 @@ app.get('/get_all_events', async (req, res) => {
 
 app.post('/get_my_participations', async (req, res) => {
   username = req.body.username
-  
   const collection = await connect()
   const cursor = collection.find({ 'participants.name': username })
   const result = await cursor.toArray();
   res.status(200).send(result);
 });
+
+app.post('/get_my_tournaments', async (req,res)=>{
+  username = req.body.username
+  const collection = await connect()
+  const cursor = collection.find({ 'organizer.name': username})
+  const result = await cursor.toArray();
+  res.status(200).send(result)
+})
 
 app.post('/create_team', async (req, res) => {
   const { eventName, teamName, username } = req.body

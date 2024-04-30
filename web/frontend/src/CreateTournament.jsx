@@ -32,6 +32,9 @@ const CreateTournament = () => {
     const [regDate,setRegDate] = useState("");
     const [tourDate, setTourDate] = useState("");
     const [des,setDes]=useState("")
+    const [fee,setFee] = useState(0);
+    const [key,setKey] = useState("");
+    const [secret, setSecret] = useState("")
 
     const handleNumber = (e) => {
         if (e.target.value > 0) {
@@ -97,7 +100,10 @@ const CreateTournament = () => {
             "ppt": limit,
             "reglastdate": regDate,
             "startdate": tourDate,
-            "description":des
+            "description":des,
+            "fee":fee,
+            "key":key,
+            "secret":secret
         };
 
         const requestOptions = {
@@ -156,10 +162,27 @@ const CreateTournament = () => {
                     <h2 className='text-3xl text-white  ml-4'>Team Size <span className='text-pink-500'>(Participants per team)</span></h2>
                     <input type='number' onChange={handleNumber} value={size} className='px-8 py-2 rounded-full' />
                 </div>
+
+                <div className=' font-normal space-y-2 space-x-4'>
+                    <h2 className='text-3xl text-white  ml-4'>Enter registration fees</h2>
+                    <input type='number' className='px-8 py-2 rounded-full' onChange={(e)=>{setFee(e.target.value)}} />
+                </div>
+
+                <div className=' font-normal space-y-2 space-x-4'>
+                    <h2 className='text-3xl text-white  ml-4'>Enter RazorPay key</h2>
+                    <input type='number' className='px-8 py-2 rounded-full' onChange={(e)=>{setKey(e.target.value)}} />
+                </div>
+
+                <div className=' font-normal space-y-2 space-x-4'>
+                    <h2 className='text-3xl text-white  ml-4'>Enter Razorpay Secret</h2>
+                    <input type='number' className='px-8 py-2 rounded-full' onChange={(e)=>{setSecret(e.target.value)}} />
+                </div>
+                
                 <div className=' font-normal space-y-2 space-x-4'>
                     <h2 className='text-3xl text-white  ml-4'>First Prize</h2>
                     <input type='text' className='px-8 py-2 rounded-full' onChange={handleFirstPrize} />
                 </div>
+
                 <div className=' font-normal space-y-2 space-x-4'>
                     <h2 className='text-3xl text-white  ml-4'>Second Prize</h2>
                     <input type='text' className='px-8 py-2 rounded-full' onChange={handleSecondPrize} />
