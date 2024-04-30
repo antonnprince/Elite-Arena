@@ -53,6 +53,10 @@ const Browse = () => {
     return () => unsubscribe();
   }, []);
 
+  const handlejoin = async (event)=>{
+    axios.post("http://localhost:3000/join_team",{username:user.displayName,eventName:event.name,teamName:teamname}).then(x=>{window.location.href="/browse"})
+  }
+
   const handlecreate = async (event)=>{
     const response = await axios.post("http://localhost:3000/create_team",{username:user.displayName,eventName:event.name,teamName:teamname})
     console.log(response)
@@ -176,7 +180,7 @@ const Browse = () => {
                   <button
                     className="bg-pink-500 text-white rounded-full active:bg-emerald-600 font-bold uppercase text-sm px-6 py-2  shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => handlejoin()}
+                    onClick={() => handlejoin(each)}
                   >
                     join Team
                   </button></>:<><button

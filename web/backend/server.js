@@ -111,12 +111,6 @@ app.post('/join_team', async (req, res) => {
   
   const event = await collection.findOne({ name: eventName });
 
-  const currentDate = new Date();
-  const registrationDeadline = new Date(event.reglastdate);
-  if (currentDate > registrationDeadline) {
-    return res.status(400).json({ error: 'Registration deadline has passed' });
-  }
-
   const existingTeam = event.participants.find(participant => participant.team === teamName);
   if (!existingTeam) {
     return res.status(404).json({ error: 'Team not found for this event' });
