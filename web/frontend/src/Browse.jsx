@@ -178,7 +178,13 @@ const Browse = () => {
                     onClick={() => handlejoin()}
                   >
                     join Team
-                  </button></>:<><button disabled>Already Joined</button></>}
+                  </button></>:<><button
+                    className="bg-pink-500 text-white rounded-full active:bg-emerald-600 font-bold uppercase text-sm px-6 py-2  shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    disabled
+                  >
+                    Already Joined
+                  </button></>}
                 </div>
               </div>
             </div>
