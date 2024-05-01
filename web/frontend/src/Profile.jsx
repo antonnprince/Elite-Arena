@@ -227,7 +227,7 @@ useEffect(() => {
         </button>
     </div>
 
-    
+    {/*  EDIT FROM HERE */}
     <div className='bg-zinc-900 px-24 py-4 rounded-3xl'>
         <h1 className='text-white font-bold text-4xl'>Tournaments <span className='text-pink-400'>Registered</span></h1>
         {
@@ -239,7 +239,7 @@ useEffect(() => {
                 part.map((each)=>{
                   return(
                     <>
-                    <h1 className='text-white font-semibold text-2xl'>{each.name}</h1>
+                     <h1 className='text-white font-semibold text-2xl'>{each.name}</h1>
                     </>
                   )
                 })
