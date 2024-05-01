@@ -45,7 +45,7 @@ app.post('/get_my_participations', async (req, res) => {
   const collection = await connect()
   const cursor = collection.find({ 'participants.name': username })
   const result = await cursor.toArray();
-  res.status(200).send(result);
+  return res.status(200).send(result);
 });
 
 app.post('/get_my_tournaments', async (req,res)=>{

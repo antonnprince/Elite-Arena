@@ -18,11 +18,7 @@ const Nav = () => {
     return () => unsubscribe();
   }, []);
 
-  const handleSignOut = () => {
-    auth.signOut().then(() => {
-      window.location.href = "/login";
-    });
-  };
+ 
 
   return (
     <>
@@ -40,11 +36,6 @@ const Nav = () => {
             {!user && (
               <li className='text-gray-600 hover:text-pink-500 delay-200 hover:cursor-pointer'>
                 <Link to="/login">Login</Link>
-              </li>
-            )}
-            {user && (
-              <li className='text-gray-600 hover:text-pink-500 delay-200 hover:cursor-pointer'>
-                <Link onClick={handleSignOut}>Logout</Link>
               </li>
             )}
             <li className='text-gray-600 hover:text-pink-500 delay-200 hover:cursor-pointer'>
