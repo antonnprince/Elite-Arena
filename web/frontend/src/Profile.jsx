@@ -21,7 +21,7 @@ const Profile = () => {
   const getParticipants = async (displayName) => {
   try {
     
-    const response = await axios.post('http://localhost:3000/get_my_participations', { displayName });
+    const response = await axios.post('http://localhost:3000/get_my_participations', { username:displayName });
      setPart(response.data)
      setPlength(part.length)
     return response.data;
@@ -37,7 +37,7 @@ const handleSignOut = () => {
 };
 const getTournaments = async (displayName) =>{
   try{
-    const response = await axios.post('http://localhost:3000/get_my_tournaments', {displayName});
+    const response = await axios.post('http://localhost:3000/get_my_tournaments', {username:displayName});
     setEvents(response.data)
     setElength(events.length)
     return response.data
