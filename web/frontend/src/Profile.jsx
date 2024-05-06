@@ -30,21 +30,25 @@ const Profile = () => {
     throw error;
   }
 };
+
 const handleSignOut = () => {
   auth.signOut().then(() => {
     window.location.href = "/login";
   });
 };
-const getTournaments = async (displayName) =>{
-  try{
-    const response = await axios.post('http://localhost:3000/get_my_tournaments', {username:displayName});
-    setEvents(response.data)
-    setElength(events.length)
-    return response.data
-  } catch(error){
-    console.error(error)
+
+
+const getTournaments = async (displayName) => {
+  try {
+    const response = await axios.post('http://localhost:3000/get_my_tournaments', { username: displayName }); // Corrected field name
+    setEvents(response.data);
+    setElength(response.data.length); // Update length based on response data
+    return response.data;
+  } catch (error) {
+    console.error(error);
   }
-}
+};
+
 
 useEffect(() => {
   const auth = getAuth();
@@ -55,7 +59,6 @@ useEffect(() => {
       try {
         const participantsData = await getParticipants(currentUser.displayName);
         const tournamentData = await getTournaments(currentUser.displayName);
-        
         console.log("Participated",participantsData);
         console.log("Organized",tournamentData)
       } catch (error) {
@@ -145,19 +148,18 @@ useEffect(() => {
                         <span className="bg-black text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
                           ×
                         </span>
-                      </button>
-                    </div>
+                        </button>
+                        </div>
                     {/*body*/}
                      <div className="relative p-6 flex-auto bg-zinc-800 text-white mx-4 rounded-3xl">
                       <p className="my-4 text-blueGray-500 text-lg leading-relaxed flex flex-col">
                         {focus.description}
                       </p>
-                      <h4 className='text-white font-semibold'><span className='text-pink-500'>Max teams allowed:</span>{focus.maxteams} </h4>
-                      <h4 className='text-white font-semibold'><span className='text-pink-500'>Game used:</span>{focus.game} </h4>
-                      <h4 className='text-white font-semibold'><span className='text-pink-500'>Total participants:</span>{focus.participants.length}</h4>
-                      
-                      <button className='text-white font-semibold' 
-                      onClick={()=>{
+                        <h4 className='text-white font-semibold'><span className='text-pink-500'>Max teams allowed:</span>{focus.maxteams} </h4>
+                        <h4 className='text-white font-semibold'><span className='text-pink-500'>Game used:</span>{focus.game} </h4>
+                        <h4 className='text-white font-semibold'><span className='text-pink-500'>Total participants:</span>{focus.participants.length}</h4>
+                        <button className='text-white font-semibold' 
+                        onClick={()=>{
                         focus &&
                         setTeams(focus.participants),
                         setP(!p)
@@ -168,23 +170,23 @@ useEffect(() => {
                       </button>
                        
                       {p && (
-    <>
-        {Object.entries(
-            teams.reduce((acc, team) => {
-                if (!acc[team.team]) {
-                    acc[team.team] = [];
-                }
-                acc[team.team].push(team.name);
-                return acc;
-            }, {})
-        ).map(([teamName, teamMembers], index) => (
-            <div key={index}>
-                <p>Team Name: {teamName}</p>
-                <p>Name: {teamMembers.join(', ')}</p>
-            </div>
-        ))}
-    </>
-)}
+                      <>
+                      {Object.entries(
+                          teams.reduce((acc, team) => {
+                              if (!acc[team.team]) {
+                                  acc[team.team] = [];
+                              }
+                              acc[team.team].push(team.name);
+                              return acc;
+                          }, {})
+                          ).map(([teamName, teamMembers], index) => (
+                              <div key={index}>
+                                  <p>Team Name: {teamName}</p>
+                                  <p>Name: {teamMembers.join(', ')}</p>
+                              </div>
+                            ))}
+                        </>
+                  )}
 
                       
 
