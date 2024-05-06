@@ -96,7 +96,7 @@ useEffect(() => {
                     {events.length}
                     </h2>
                 </div> 
-        </div>  
+        </div> 
 
         <div className='bg-zinc-900 px-24 py-4 rounded-3xl'>
         <h1 className='text-white font-bold text-4xl'>Tournaments <span className='text-pink-400'>Organized</span></h1>
