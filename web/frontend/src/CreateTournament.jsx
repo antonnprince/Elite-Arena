@@ -170,12 +170,12 @@ const CreateTournament = () => {
 
                 <div className=' font-normal space-y-2 space-x-4'>
                     <h2 className='text-3xl text-white  ml-4'>Enter RazorPay key</h2>
-                    <input type='number' className='px-8 py-2 rounded-full' onChange={(e)=>{setKey(e.target.value)}} />
+                    <input type='text' className='px-8 py-2 rounded-full' onChange={(e)=>{setKey(e.target.value)}} />
                 </div>
 
                 <div className=' font-normal space-y-2 space-x-4'>
                     <h2 className='text-3xl text-white  ml-4'>Enter Razorpay Secret</h2>
-                    <input type='number' className='px-8 py-2 rounded-full' onChange={(e)=>{setSecret(e.target.value)}} />
+                    <input type='text' className='px-8 py-2 rounded-full' onChange={(e)=>{setSecret(e.target.value)}} />
                 </div>
                 
                 <div className=' font-normal space-y-2 space-x-4'>

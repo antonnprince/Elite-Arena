@@ -41,6 +41,7 @@ const handleSignOut = () => {
 const getTournaments = async (displayName) => {
   try {
     const response = await axios.post('http://localhost:3000/get_my_tournaments', { username: displayName }); // Corrected field name
+    console.log(response)
     setEvents(response.data);
     setElength(response.data.length); // Update length based on response data
     return response.data;
@@ -58,6 +59,7 @@ useEffect(() => {
       setUser(currentUser);
       try {
         const participantsData = await getParticipants(currentUser.displayName);
+        console.log(currentUser.displayName)
         const tournamentData = await getTournaments(currentUser.displayName);
         console.log("Participated",participantsData);
         console.log("Organized",tournamentData)
