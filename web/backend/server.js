@@ -58,7 +58,7 @@ app.post('/get_my_tournaments', async (req,res)=>{
 })
 
 app.post('/create_team', async (req, res) => {
-  const { eventName, teamName, username } = req.body
+  const { eventName, teamName, username, members } = req.body
   console.log(eventName, teamName, username)
   const collection = await connect()
   
@@ -81,12 +81,19 @@ app.post('/create_team', async (req, res) => {
     return res.status(400).json({ error: 'Team already exists for this event' });
   }
   console.log("sdfsdfsdfsf")
+
   const newParticipant = { name: username, team: teamName };
   await collection.updateOne({ name: eventName }, { $push: { participants: newParticipant } });
+  
+  for (i in members){
+    const newParticipant = { name: members[i], team: teamName };
+    await collection.updateOne({ name: eventName }, { $push: { participants: newParticipant } });
+  }
+  
   console.log("1222222")
   if (event.fee>0){
     console.log("yojojon")
-    const amount = event.fee 
+    const amount = parseInt(event.fee) * 100
     const currency = "INR"
     const receipt = "payment done"
     const notes = {"name":event.name}

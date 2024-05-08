@@ -67,9 +67,10 @@ const CreateTournament = () => {
         // Create a new FileReader instance
         const reader = new FileReader();
 
-        // Read the file as a Data URL (Base64)
+        // Read the file as a Data URL (Base64) 
         reader.readAsDataURL(file);
 
+ 
         // Set up a listener for when the file is loaded
         reader.onload = () => {
             // Set the Base64 string as the value of the state
@@ -90,7 +91,7 @@ const CreateTournament = () => {
             const sendData = async () => {
     try {
         const Result = {
-            "name": eventName,
+            "name": eventName,                  
             "team": true,
             "organizer": user.displayName,
             "image": poster,

@@ -6,6 +6,7 @@ import { app, auth } from './config';
  import { useEffect, useState } from "react";
  import useRazorpay from "react-razorpay";
 import  axios from "axios"
+import CreateTeam from './CreateTeam';
 
 const Browse = () => {
   const [Razorpay] = useRazorpay();
@@ -14,7 +15,10 @@ const Browse = () => {
   const [showModal, setShowModal] = useState(false);
   const [focus, setFocus] = useState(null)
   const [teamname, setTeamname] = useState("")
+  const [members, setMembers] = useState([])
   const [mygames, setMygames] = useState([])
+  const [showCreate, setShowCreate] = useState(false)
+  const [selected, setSelected] = useState(null)
   
   const getdata = async (user) =>{
     const response = await fetch("http://localhost:3000/get_all_events", {
@@ -58,7 +62,8 @@ const Browse = () => {
   }
 
   const handlecreate = async (event)=>{
-    const response = await axios.post("http://localhost:3000/create_team",{username:user.displayName,eventName:event.name,teamName:teamname})
+    console.log(members)
+    const response = await axios.post("http://localhost:3000/create_team",{username:user.displayName,eventName:event.name,teamName:teamname, members:members})
     console.log(response)
       const order = response.data
       console.log(order.amount)
@@ -98,12 +103,14 @@ const Browse = () => {
 
   return (
     <>
-    {user && data && <>
+    {
+    user && data && <>
     <h1 className='text-4xl text-white font-bold'><span className='text-pink-500 text-center'>Current</span> Tournaments</h1>
     <div className='flex flex-row flex-wrap space-x-4 space-y-8 h-full mx-24'>
       <br/>
     {
       data.map((each)=>{
+        
         return(
           <div className='flex-col' key={data._id}>
           <img src={each.image} key={each._id} className='w-42 h-56 rounded-xl my-4 w-max-56'/>
@@ -114,6 +121,8 @@ const Browse = () => {
         type="button"
         onClick={() => {setShowModal(true);
         setFocus(each);
+        setSelected(each)
+        console.log(each)
         }}
       >
         More details
@@ -169,27 +178,78 @@ const Browse = () => {
                   >
                     Close
                   </button>
-                  {!mygames.includes(each.name) ? <><input placeholder='Team name' value={teamname} onChange={(e)=>setTeamname(e.target.value)}></input>
+                  {
+                  !mygames.includes(each.name) ? 
+                  <>
+                  {/* <input placeholder='Team name' value={teamname} onChange={(e)=>setTeamname(e.target.value)}></input> */}
+                  
                   <button
                     className="bg-pink-500 text-white rounded-full active:bg-emerald-600 font-bold uppercase text-sm px-6 py-2  shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => handlecreate(each)}
+                    onClick={() =>{setShowCreate(true);}}
                   >
-                    create Team
+                    Create Team
                   </button>
                   <button
                     className="bg-pink-500 text-white rounded-full active:bg-emerald-600 font-bold uppercase text-sm px-6 py-2  shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => handlejoin(each)}
                   >
                     join Team
-                  </button></>:<><button
+                  </button>
+                  {
+                    showCreate &&
+                    <>
+                      <div className="justify-center items-center flex bg-zinc-800 overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+                        <div className="relative w-auto my-6 mx-auto max-w-3xl bg-zinc-800">
+                          
+                               <div className="border-0 rounded-lg shadow-lg bg-zinc-800 relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                                <div className=' font-normal p-10 space-y-2 space-x-4'>
+                                 <h2 className='text-3xl font-normal text-  ml-4'>Team Name<span className='text-pink-500'>*</span></h2>
+                                  <input required type='text' className='px-8 py-2 border border-black-500 focus:border-black focus:outline-none rounded-full' onChange={(e) => {setTeamname(e.target.value);console.log(each.ppt)}} />
+                                  {Array.from({ length: parseInt(selected.ppt)-1 }, (_, index) => (
+                                    <>
+                                  <h2 className='text-3xl font-normal text-black  ml-4'>Team Member <span className='text-pink-500'>*</span></h2>
+                                  <input required type='text' className='px-8 border border-black-500 focus:border-black focus:outline-none py-2 rounded-full' onChange={(e) => setMembers([...members.slice(0, index), e.target.value, ...members.slice(index + 1)]) } />
+                                  </>
+                                ))}
+                                </div>
+                                <div className='flex flex-row mx-auto'>
+                                <button
+                            className="text-red-500 bg-zinc-800 rounded-full font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                            type="button"
+                            onClick={() => setShowCreate(false)}
+                            >
+                              Close
+                            </button>
+                  
+                            <button
+                            className="text-red-500 bg-zinc-800 rounded-full font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                            type="submit"
+                            onClick={() => handlecreate(each)}
+                            >
+                              Submit
+                            </button>
+                            </div>
+                              </div>
+                            
+                            
+                          </div>
+                        </div> <div className="opacity-25 fixed inset-0 z-40 bg-zinc-900"></div>
+
+                    </>
+                  }
+                  </>
+                  :
+                  <>
+                  <button
                     className="bg-pink-500 text-white rounded-full active:bg-emerald-600 font-bold uppercase text-sm px-6 py-2  shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     disabled
                   >
                     Already Joined
-                  </button></>}
+                  </button>
+                  </>
+                  }
                 </div>
               </div>
             </div>
@@ -210,3 +270,4 @@ const Browse = () => {
 }
 
 export default Browse
+
