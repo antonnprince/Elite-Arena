@@ -140,7 +140,7 @@ app.post('/create_game', async (req, res) => {
   const kimage = image.replace("data:image/jpeg;base64,","")
   body.append('image', kimage)
   body.append("key","c5e552954a298ee10800c6bd21d66427")
-  body.append("expiration","300000")
+  body.append("expiration","700000")
   const response = await fetch('https://api.imgbb.com/1/upload', {
   method: 'POST',
   body: body
