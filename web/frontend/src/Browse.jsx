@@ -55,6 +55,7 @@ const Browse = () => {
       } else {
         window.location.href = "/login"
       }
+      
     });
 
 
@@ -65,6 +66,9 @@ const Browse = () => {
   const handlejoin = async (event)=>{
     axios.post("http://localhost:3000/join_team",{username:user.displayName,eventName:event.name,teamName:teamname}).then(x=>{window.location.href="/browse"})
   }
+
+  const t = new Date()
+  console.log(t)
 
   const handlecreate = async (event)=>{
     console.log(members)
@@ -195,16 +199,18 @@ const Browse = () => {
                   <button
                     className="bg-pink-500 text-white rounded-full active:bg-emerald-600 font-bold uppercase text-sm px-6 py-2  shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() =>{setShowCreate(true);}}
+                    onClick={() =>{new Date(focus.reglastdate) > t ?setShowCreate(true) : setShowCreate(false)}}
                   >
-                    Create Team
+                    {
+                      new Date(focus.reglastdate) > t ? "Create Team" : "Registrations closed"
+                    }
                   </button>
-                  <button
+                  {/* <button
                     className="bg-pink-500 text-white rounded-full active:bg-emerald-600 font-bold uppercase text-sm px-6 py-2  shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                   >
                     join Team
-                  </button>
+                  </button> */}
                   {
                     showCreate &&
                     <>
