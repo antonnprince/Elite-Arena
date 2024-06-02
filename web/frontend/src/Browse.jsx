@@ -19,6 +19,11 @@ const Browse = () => {
   const [mygames, setMygames] = useState([])
   const [showCreate, setShowCreate] = useState(false)
   const [selected, setSelected] = useState(null)
+  const [search, setSearch] = useState("")
+
+  const filteredData = data.filter(item => 
+    item.name.toLowerCase().includes(search.toLowerCase())
+  );
   
   const getdata = async (user) =>{
     const response = await fetch("http://localhost:3000/get_all_events", {
@@ -106,10 +111,14 @@ const Browse = () => {
     {
     user && data && <>
     <h1 className='text-4xl text-white font-bold'><span className='text-pink-500 text-center'>Current</span> Tournaments</h1>
+    <div className='m-5 rounded-full text-black w-full'>
+      <input type='text' value={search} onChange={e=>setSearch(e.target.value)} className='w-[20%] rounded-full h-10 focus:outline-none pl-5 pr-5'></input>
+    </div>
+
     <div className='flex flex-row flex-wrap space-x-4 space-y-8 h-full mx-24'>
       <br/>
     {
-      data.map((each)=>{
+      filteredData.map((each)=>{
         
         return(
           <div className='flex-col' key={data._id}>
