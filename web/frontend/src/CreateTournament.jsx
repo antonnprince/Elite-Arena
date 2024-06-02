@@ -19,18 +19,29 @@ const CreateTournament = () => {
           window.location.href = "/login"
         }
       });
+
   
+
       return () => unsubscribe();
     }, []);
 
+  
+    const today=new Date() 
+    const tom =new Date(today)
+    tom.setDate(today.getDate() + 1)
+
+    const tour = new Date(tom)
+    tour.setDate(tour.getDate() + 1)
+  
+    
     const [gameName, setgameName] = useState("");
     const[eventName,setEventName]=useState("");
     const [poster, setPoster] = useState("")
     const [size, setSize] = useState(1);
     const [prizes, setPrizes] = useState({ "first": "", "second": "", "third": "" });
     const [limit, setLimit] = useState(1);
-    const [regDate,setRegDate] = useState("");
-    const [tourDate, setTourDate] = useState("");
+    const [regDate,setRegDate] = useState(tom);
+    const [tourDate, setTourDate] = useState(new Date(tour));
     const [des,setDes]=useState("")
     const [fee,setFee] = useState(0);
     const [key,setKey] = useState("");
@@ -41,6 +52,38 @@ const CreateTournament = () => {
             setSize(e.target.value);
         }
     };
+
+
+    
+    const handleDate = (e) => {
+        const selectedDate = new Date(e.target.value);
+        if (selectedDate < tom) {
+          window.alert("Pick a correct date");
+          setRegDate(tom);
+        }else {
+            setRegDate(selectedDate);
+            const t = new Date(selectedDate)
+            t.setDate(t.getDate() + 1)
+            setTourDate(t)
+          }
+      };
+
+
+      const handleTourDate=(e)=>{
+        const tdate = new Date(e.target.value)
+        if(tdate < regDate)
+            {
+                window.alert("Tournament should begin atleast a day after registration ends")
+                const s = new Date(regDate)
+                s.setDate(s.getDate() + 1)
+                setTourDate(s)
+            }
+        else{
+            setTourDate(tdate)
+        }
+    }
+
+
 
     const handleLimit = (e) => {
         if (e.target.value > 0) {
@@ -192,18 +235,23 @@ const CreateTournament = () => {
                     <h2 className='text-3xl text-white  ml-4'>Third Prize</h2>
                     <input type='text' className='px-8 py-2 rounded-full' onChange={handleThirdPrize} />
                 </div>
+                
                 <div className=' font-normal space-y-2 space-x-4'>
                     <h2 className='text-3xl text-white  ml-4'>Team Limit <span className='text-pink-500'>*(Max number of teams)</span></h2>
                     <input type='number' className='px-8 py-2 rounded-full' onChange={handleLimit} value={limit} />
                 </div>
+                
                 <div className=' font-normal space-y-2 space-x-4'>
                     <h2 className='text-3xl text-white  ml-4'>Registration End Date <span className='text-pink-500'>*</span></h2>
-                    <input type='date' className='px-8 py-2 rounded-full' onChange={(e)=>{setRegDate(e.target.value)}} />
+                    <input type='date' className='px-8 py-2 rounded-full' value={regDate.toISOString().substring(0,10)}
+                    onChange={(e)=>handleDate(e)} />
                 </div>
+
                 <div className=' font-normal space-y-2 space-x-4'>
                     <h2 className='text-3xl text-white  ml-4'>Tournament Start Date <span className='text-pink-500'>*</span></h2>
                     <input type='date' className='px-8 py-2 rounded-full'
-                    onChange={(e)=>{setTourDate(e.target.value)}} />
+                     value={tourDate.toISOString().substring(0, 10)}
+                    onChange={(e)=>handleTourDate(e)} />
                 </div>
 
                 <button className='bg-pink-500 text-white text-center px-2 w-42 py-2 font-bold rounded-full'
