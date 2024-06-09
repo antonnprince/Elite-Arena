@@ -31,17 +31,20 @@ const Browse = () => {
     });
 
     const datak = await response.json()
+    console.log(datak.data)
+    console.log(user)
     setData(datak.data)
+    let sample= [];
     for (var i in datak.data){
       for (var j in datak.data[i].participants){
-        if (user.displayName==datak.data[i].participants[j].name){
-          console.log(datak.data[i].name)
-          setMygames(...mygames, datak.data[i].name)
+        if (user.displayName===datak.data[i].participants[j].name){
+          sample.push(datak.data[i].name)
           continue
         }
       }
     }
-    console.log(datak.data)
+    setMygames(sample)
+    //console.log(datak.data)
   }
   useEffect(() => {
     const auth = getAuth();
@@ -64,28 +67,32 @@ const Browse = () => {
   }, []);
 
   const handlejoin = async (event)=>{
-    axios.post("http://localhost:3000/join_team",{username:user.displayName,eventName:event.name,teamName:teamname}).then(x=>{window.location.href="/browse"})
+ await  axios.post("http://localhost:3000/join_team",{username:user.displayName,eventName:event.name,teamName:teamname}).then(x=>{window.location.href="/browse"})
+  
   }
 
   const t = new Date()
-  console.log(t)
+
 
   const handlecreate = async (event)=>{
     console.log(members)
-    const response = await axios.post("http://localhost:3000/create_team",{username:user.displayName,eventName:event.name,teamName:teamname, members:members})
-    console.log(response)
-      const order = response.data
+    let response;
+    try{
+          response = await axios.post("http://localhost:3000/create_team",{username:user.displayName,eventName:event.name,teamName:teamname, members:members})
+          const order = response.data
       console.log(order.amount)
       var options = { 
         "key": event.key,  
-        "amount": "40",  
+        "amount": parseInt(order.amount),  
         "currency": "INR", 
         "name": event.name, 
         "description": "Pay & Checkout this Course, Upgrade your DSA Skill", 
          "image": "https://media.geeksforgeeks.org/wp-content/uploads/20210806114908/dummy-200x200.png", 
         "order_id": order.id,   
         "handler": function (response){ 
+            alert("Successfully registered")
             window.location.href="/browse" 
+            
         }, 
         "prefill": { 
            //Here we are prefilling random contact 
@@ -106,7 +113,11 @@ const Browse = () => {
 
       const rzpay = new Razorpay(options);
       rzpay.open();
-
+    }
+    catch(e){
+      alert("team exists already")
+      return;
+    }
   }
   
 
@@ -123,18 +134,19 @@ const Browse = () => {
       <br/>
     {
       filteredData.map((each)=>{
-        
+
         return(
           <div className='flex-col' key={data._id}>
           <img src={each.image} key={each._id} className='w-42 h-56 rounded-xl my-4 w-max-56'/>
           <h4 className='text-white font-normal text-xl'>{each.name}</h4>
-          <>
+          <> 
         <button
         className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         type="button"
         onClick={() => {setShowModal(true);
         setFocus(each);
         setSelected(each)
+        console.log(mygames)
         console.log(each)
         }}
       >
@@ -192,7 +204,7 @@ const Browse = () => {
                     Close
                   </button>
                   {
-                  !mygames.includes(each.name) ? 
+                  !mygames.includes(selected.name) ? 
                   <>
                   {/* <input placeholder='Team name' value={teamname} onChange={(e)=>setTeamname(e.target.value)}></input> */}
                   
@@ -240,7 +252,7 @@ const Browse = () => {
                             <button
                             className="text-red-500 bg-zinc-800 rounded-full font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                             type="submit"
-                            onClick={() => handlecreate(each)}
+                            onClick={() =>{ handlecreate(selected), console.log(selected)}}
                             >
                               Submit
                             </button>

@@ -78,9 +78,9 @@ app.post('/create_team', async (req, res) => {
 
   const existingTeam = event.participants.find(participant => participant.team === teamName);
   if (existingTeam) {
-    return res.status(400).json({ error: 'Team already exists for this event' });
+    return res.status(400).json({ error: 'Team exists for this event' });
   }
-  console.log("sdfsdfsdfsf")
+  // console.log("sdfsdfsdfsf")
 
   const newParticipant = { name: username, team: teamName };
   await collection.updateOne({ name: eventName }, { $push: { participants: newParticipant } });
@@ -90,10 +90,11 @@ app.post('/create_team', async (req, res) => {
     await collection.updateOne({ name: eventName }, { $push: { participants: newParticipant } });
   }
   
-  console.log("1222222")
-  if (event.fee>0){
+  // console.log("1222222")
+  if (parseInt(event.fee)>0){
     console.log("yojojon")
-    const amount = parseInt(event.fee) * 100
+    console.log(event.fee, typeof(event.fee))
+    const amount = event.fee + "00"
     const currency = "INR"
     const receipt = "payment done"
     const notes = {"name":event.name}
@@ -107,8 +108,8 @@ app.post('/create_team', async (req, res) => {
       } 
     ) 
   }
-
-  console.log("llllllllll")
+  // res.status(200).json({data:"Successfully registered"})
+  // console.log("llllllllll")
 });
 
 
