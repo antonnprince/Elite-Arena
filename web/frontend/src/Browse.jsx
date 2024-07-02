@@ -124,47 +124,55 @@ const Browse = () => {
   return (
     <>
     {
-    user && data && <>
-    <h1 className='text-4xl text-white font-bold'><span className='text-pink-500 text-center'>Current</span> Tournaments</h1>
-    <div className='m-5 rounded-full text-black w-full'>
-      <input type='text' value={search} onChange={e=>setSearch(e.target.value)} className='w-[20%] rounded-full h-10 focus:outline-none pl-5 pr-5'></input>
-    </div>
+      user && data && <>
+      
+      <h1 className='text-5xl text-white font-bold ml-16 my-4'><span className='text-pink-500 text-center'>Current</span> Tournaments</h1>
+      
+      <div className='my-2 rounded-full text-black w-full'>
+        <input type='text' value={search} 
+        placeholder='Enter Tournament Name'
+        onChange={e=>setSearch(e.target.value)} 
+        className='w-[30%] rounded-full bg-[#dae0db] h-8 focus:outline-none pl-5 ml-[35%] pr-5'/>
+      </div>
 
-    <div className='flex flex-row flex-wrap space-x-4 space-y-8 h-full mx-24'>
+    <div className='flex flex-row flex-wrap space-x-4 space-y-8 h-full mx-12'
+    style={{ overflowX: 'hidden', overflowY: 'auto' }}
+    >
       <br/>
     {
       filteredData.map((each)=>{
 
         return(
           <div className='flex-col' key={data._id}>
-          <img src={each.image} key={each._id} className='w-42 h-56 rounded-xl my-4 w-max-56'/>
-          <h4 className='text-white font-normal text-xl'>{each.name}</h4>
+          <img src={each.image} key={each._id} className='w-42 h-56 rounded-xl mb-2 w-max-56'/>
+          <h4 className='text-white font-bold text-xl mb-2 '>{each.name}</h4>
           <> 
-        <button
-        className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-        type="button"
-        onClick={() => {setShowModal(true);
-        setFocus(each);
-        setSelected(each)
-        console.log(mygames)
-        console.log(each)
-        }}
-      >
-        More details
-      </button>
+            <button
+            className="bg-pink-500 text-[#dae0db] active:bg-pink-600 font-semibold uppercase text-xs px-2 py-1 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            type="button"
+            onClick={() => {setShowModal(true);
+            setFocus(each);
+            setSelected(each)
+            console.log(mygames)
+            console.log(each)
+            }}
+          >
+            More details
+          </button>
 
       {
         showModal && focus &&(
         <>
-          <div className="justify-center items-center flex bg-zinc-800 overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-          >
-            <div className="relative w-auto my-6 mx-auto max-w-3xl bg-zinc-800">
+          <div className="
+          flex bg-zinc-800 overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+            
+            <div className="relative my-6 mx-auto max-w-3xl bg-zinc-800">
               {/*content*/}
-              <div className="border-0 rounded-lg shadow-lg bg-zinc-800 relative flex flex-col w-full bg-white outline-none focus:outline-none">
+              <div className="border-0 rounded-lg shadow-lg bg-zinc-800 relative flex flex-col bg-zinc-800 outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 ">
                   <div className='flex flex-col items-start mx-auto'>
-                  <img src={focus.image} className='w-3/4 h-42 bg-zinc-800 p-4 rounded-3xl'/>
+                  <img src={focus.image} className='w-3/4 h-auto  bg-zinc-800 p-2 rounded-3xl'/>
                   <h3 className="text-3xl font-bold text-pink-500">
                     {focus.name}
                   </h3>
