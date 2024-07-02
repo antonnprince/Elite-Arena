@@ -128,11 +128,11 @@ const Browse = () => {
       
       <h1 className='text-5xl text-white font-bold ml-16 my-4'><span className='text-pink-500 text-center'>Current</span> Tournaments</h1>
       
-      <div className='my-2 rounded-full text-black w-full'>
+      <div className='my-2 rounded-full text-black text-sm w-full'>
         <input type='text' value={search} 
         placeholder='Enter Tournament Name'
         onChange={e=>setSearch(e.target.value)} 
-        className='w-[30%] rounded-full bg-[#dae0db] h-8 focus:outline-none pl-5 ml-[35%] pr-5'/>
+        className='w-[30%] rounded-full bg-white h-8 focus:outline-none pl-5 ml-[35%] pr-5'/>
       </div>
 
     <div className='flex flex-row flex-wrap space-x-4 space-y-8 h-full mx-12'
@@ -168,12 +168,13 @@ const Browse = () => {
             
             <div className="relative my-6 mx-auto max-w-3xl bg-zinc-800">
               {/*content*/}
-              <div className="border-0 rounded-lg shadow-lg bg-zinc-800 relative flex flex-col bg-zinc-800 outline-none focus:outline-none">
+              <div className="border-0 rounded-lg shadow-lg bg-zinc-800 relative flex flex-col 
+              bg-zinc-800 outline-none focus:outline-none">
                 {/*header*/}
-                <div className="flex items-start justify-between p-5 ">
+                <div className="flex mx-auto  ">
                   <div className='flex flex-col items-start mx-auto'>
                   <img src={focus.image} className='w-3/4 h-auto  bg-zinc-800 p-2 rounded-3xl'/>
-                  <h3 className="text-3xl font-bold text-pink-500">
+                  <h3 className="text-4xl font-extrabold text-pink-500">
                     {focus.name}
                   </h3>
                   </div>
@@ -187,20 +188,20 @@ const Browse = () => {
                   </button>
                 </div>
                 {/*body*/}
-                <div className="relative p-6 flex-auto bg-zinc-800 text-white mx-4 rounded-3xl">
-                  <p className="my-4 text-blueGray-500 text-lg leading-relaxed flex flex-col">
+                <div className="relative bg-zinc-800 text-white mx-4 rounded-3xl">
+                  <p className="my-4 text-blueGray-500 text-md font-semibold leading-relaxed flex flex-col">
                     {focus.description}
                   </p>
-                  <h4 className='text-white font-semibold'><span className='text-pink-500'>Max teams allowed:</span>{focus.maxteams} </h4>
-                  <h4 className='text-white font-semibold'><span className='text-pink-500'>Game used:</span>{focus.game} </h4>
-                  <h4 className='text-white font-semibold'><span className='text-pink-500'>Total participants:</span>{focus.participants.length} </h4>
-                  <h4 className='text-white font-semibold'><span className='text-pink-500'>Participants per Team:</span>{focus.ppt} </h4>
-                  <h4 className='text-white font-semibold'><span className='text-pink-500'>First Prize:</span>{focus.prizes["first"]} </h4>
-                  <h4 className='text-white font-semibold'><span className='text-pink-500'>Second Prize:</span>{focus.prizes["second"]} </h4>
-                  <h4 className='text-white font-semibold'><span className='text-pink-500'>Third Prize:</span>{focus.prizes["third"]} </h4>
-                  <h4 className='text-white font-semibold'><span className='text-pink-500'>Registration fees:</span>{focus.fee} </h4>
-                  <h4 className='text-white font-semibold'><span className='text-pink-500'>Last Date to Register:</span>{focus.reglastdate.substring(0,10)} </h4>
-                  <h4 className='text-white font-semibold'><span className='text-pink-500'>Tournament Begins At:</span>{focus.startdate.substring(0,10)} </h4>
+                  <h4 className='text-white font-semibold text-md'><span className='text-pink-500 font-bold'>Max teams allowed:</span>{focus.maxteams} </h4>
+                  <h4 className='text-white font-semibold text-md'><span className='text-pink-500 font-bold'>Game used:</span>{focus.game} </h4>
+                  <h4 className='text-white font-semibold text-md'><span className='text-pink-500 font-bold'>Total participants:</span>{focus.participants.length} </h4>
+                  <h4 className='text-white font-semibold text-md'><span className='text-pink-500 font-bold'>Participants per Team:</span>{focus.ppt} </h4>
+                  <h4 className='text-white font-semibold text-md'><span className='text-pink-500 font-bold'>First Prize:</span>{focus.prizes["first"]} </h4>
+                  <h4 className='text-white font-semibold text-md'><span className='text-pink-500 font-bold'>Second Prize:</span>{focus.prizes["second"]} </h4>
+                  <h4 className='text-white font-semibold text-md'><span className='text-pink-500 font-bold'>Third Prize:</span>{focus.prizes["third"]} </h4>
+                  <h4 className='text-white font-semibold text-md'><span className='text-pink-500 font-bold'>Registration fees:</span>{focus.fee} </h4>
+                  <h4 className='text-white font-semibold text-md'><span className='text-pink-500 font-bold'>Last Date to Register:</span>{focus.reglastdate.substring(0,10)} </h4>
+                  <h4 className='text-white font-semibold text-md'><span className='text-pink-500 font-bold'>Tournament Begins At:</span>{focus.startdate.substring(0,10)} </h4>
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
