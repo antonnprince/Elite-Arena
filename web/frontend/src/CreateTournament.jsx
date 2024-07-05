@@ -181,75 +181,77 @@ const CreateTournament = () => {
             </h1>
             <form className='flex flex-col mx-56 text-pink-500 font-semibold text-2xl space-y-10 py-24'>
                 <div className=' font-normal space-y-2 space-x-4'>
-                    <h2 className='text-3xl font-normal text-white  ml-4'>Event Name <span className='text-pink-500'>*</span></h2>
-                    <input type='text' className='px-8 py-2 rounded-full' onChange={(e) => setEventName(e.target.value)} />
+                    <h2 className='text-3xl font-bold text-white  ml-4'>Event Name <span className='text-pink-500'>*</span></h2>
+                    <input type='text' className='w-1/2 h-8 rounded-full focus:outline-none px-2 font-normal text-lg' onChange={(e) => setEventName(e.target.value)} />
                 </div>
 
-                <div className=' font-normal space-y-2 space-x-4'>
-                    <h2 className='text-3xl font-normal text-white  ml-4'>Add poster <span className='text-pink-500'>*</span></h2>
+                <div className='  space-y-2 space-x-4'>
+                    <h2 className='text-3xl font-bold text-white  ml-4'>Add poster <span className='text-pink-500'>*</span></h2>
                     <input type='file'
                     accept="image/jpeg, image/jpg"
                      className='px-8 py-2 rounded-full' onChange={handleFileChange} />
                 </div>
 
-                <div className=' font-normal space-y-2 space-x-4'>
-                    <h2 className='text-3xl font-normal text-white  ml-4'>Game Used <span className='text-pink-500'>*</span></h2>
-                    <input type='text' className='px-8 py-2 rounded-full' onChange={(e) => setgameName(e.target.value)} />
+                <div className='space-y-2 space-x-4'>
+                    <h2 className='text-3xl font-bold text-white  ml-4'>Game Used <span className='text-pink-500'>*</span></h2>
+                    <input type='text' className='w-1/2 h-8 rounded-full focus:outline-none px-2 font-normal text-lg' onChange={(e) => setgameName(e.target.value)} />
                 </div>
                 
                 <div className=' font-normal space-y-2 space-x-4'>
-                    <h2 className='text-3xl font-normal text-white  ml-4'>Enter event description <span className='text-pink-500'>*</span></h2>
-                    <input type='text' className='px-8 py-2 rounded-full' onChange={(e) => setDes(e.target.value)} />
+                    <h2 className='text-3xl font-bold text-white  ml-4'>Enter event description <span className='text-pink-500'>*</span></h2>
+                    <input type='text' className='w-1/2 h-8 rounded-full focus:outline-none px-2 font-normal text-lg' onChange={(e) => setDes(e.target.value)} />
                 </div>
 
                 <div className='font-normal space-y-2 space-x-4'>
-                    <h2 className='text-3xl text-white  ml-4'>Team Size <span className='text-pink-500'>(Participants per team)</span></h2>
-                    <input type='number' onChange={handleNumber} value={size} className='px-8 py-2 rounded-full' />
+                    <h2 className='text-3xl text-white font-bold ml-4'>Team Size <span className='text-pink-500'>(Participants per team)</span></h2>
+                    <input type='number' onChange={handleNumber} value={size} className='focus:outline-none py-2 
+                    px-2 font-normal text-lg
+                    rounded-full' />
                 </div>
 
                 <div className=' font-normal space-y-2 space-x-4'>
-                    <h2 className='text-3xl text-white  ml-4'>Enter registration fees</h2>
-                    <input type='number' className='px-8 py-2 rounded-full' onChange={(e)=>{setFee(e.target.value)}} />
+                    <h2 className='text-3xl text-white font-bold ml-4'>Enter registration fees</h2>
+                    <input type='number' className='w-1/2 h-8 rounded-full focus:outline-none px-2 font-normal text-lg' onChange={(e)=>{setFee(e.target.value)}} />
+                </div>
+
+                <div className='font-normal space-y-2 space-x-4'>
+                    <h2 className='text-3xl font-bold text-white  ml-4'>Enter RazorPay key</h2>
+                    <input type='text' className='w-1/2 h-8 rounded-full focus:outline-none px-2 font-normal text-lg' onChange={(e)=>{setKey(e.target.value)}} />
                 </div>
 
                 <div className=' font-normal space-y-2 space-x-4'>
-                    <h2 className='text-3xl text-white  ml-4'>Enter RazorPay key</h2>
-                    <input type='text' className='px-8 py-2 rounded-full' onChange={(e)=>{setKey(e.target.value)}} />
-                </div>
-
-                <div className=' font-normal space-y-2 space-x-4'>
-                    <h2 className='text-3xl text-white  ml-4'>Enter Razorpay Secret</h2>
-                    <input type='text' className='px-8 py-2 rounded-full' onChange={(e)=>{setSecret(e.target.value)}} />
+                    <h2 className='text-3xl text-white font-bold ml-4'>Enter Razorpay Secret</h2>
+                    <input type='text' className='w-1/2 h-8 rounded-full focus:outline-none px-2 font-normal text-lg' onChange={(e)=>{setSecret(e.target.value)}} />
                 </div>
                 
                 <div className=' font-normal space-y-2 space-x-4'>
-                    <h2 className='text-3xl text-white  ml-4'>First Prize</h2>
-                    <input type='text' className='px-8 py-2 rounded-full' onChange={handleFirstPrize} />
+                    <h2 className='text-3xl text-white font-bold ml-4'>First Prize</h2>
+                    <input type='number' className='w-1/2 h-8 rounded-full focus:outline-none px-2 font-normal text-lg' onChange={handleFirstPrize} />
                 </div>
 
                 <div className=' font-normal space-y-2 space-x-4'>
-                    <h2 className='text-3xl text-white  ml-4'>Second Prize</h2>
-                    <input type='text' className='px-8 py-2 rounded-full' onChange={handleSecondPrize} />
+                    <h2 className='text-3xl text-white font-bold ml-4'>Second Prize</h2>
+                    <input type='text' className='w-1/2 h-8 rounded-full focus:outline-none px-2 font-normal text-lg' onChange={handleSecondPrize} />
                 </div>
                 <div className=' font-normal space-y-2 space-x-4'>
-                    <h2 className='text-3xl text-white  ml-4'>Third Prize</h2>
-                    <input type='text' className='px-8 py-2 rounded-full' onChange={handleThirdPrize} />
-                </div>
-                
-                <div className=' font-normal space-y-2 space-x-4'>
-                    <h2 className='text-3xl text-white  ml-4'>Team Limit <span className='text-pink-500'>*(Max number of teams)</span></h2>
-                    <input type='number' className='px-8 py-2 rounded-full' onChange={handleLimit} value={limit} />
+                    <h2 className='text-3xl text-white font-bold ml-4'>Third Prize</h2>
+                    <input type='text' className='w-1/2 h-8 rounded-full focus:outline-none px-2 font-normal text-lg' onChange={handleThirdPrize} />
                 </div>
                 
                 <div className=' font-normal space-y-2 space-x-4'>
-                    <h2 className='text-3xl text-white  ml-4'>Registration End Date <span className='text-pink-500'>*</span></h2>
-                    <input type='date' className='px-8 py-2 rounded-full' value={regDate.toISOString().substring(0,10)}
+                    <h2 className='text-3xl text-white font-bold ml-4'>Team Limit <span className='text-pink-500'>*(Max number of teams)</span></h2>
+                    <input type='number' className='w-1/2 h-8 rounded-full focus:outline-none px-2 font-normal text-lg' onChange={handleLimit} value={limit} />
+                </div>
+                
+                <div className='font-normal space-y-2 space-x-4'>
+                    <h2 className='text-3xl text-white font-bold ml-4'>Registration End Date <span className='text-pink-500'>*</span></h2>
+                    <input type='date' className='w-1/5 h-8 rounded-full focus:outline-none px-2 font-normal text-lg' value={regDate.toISOString().substring(0,10)}
                     onChange={(e)=>handleDate(e)} />
                 </div>
 
                 <div className=' font-normal space-y-2 space-x-4'>
-                    <h2 className='text-3xl text-white  ml-4'>Tournament Start Date <span className='text-pink-500'>*</span></h2>
-                    <input type='date' className='px-8 py-2 rounded-full'
+                    <h2 className='text-3xl text-white font-bold ml-4'>Tournament Start Date <span className='text-pink-500'>*</span></h2>
+                    <input type='date' className='w-1/5 h-8 rounded-full focus:outline-none px-2 font-normal text-lg'
                      value={tourDate.toISOString().substring(0, 10)}
                     onChange={(e)=>handleTourDate(e)} />
                 </div>
