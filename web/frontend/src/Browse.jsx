@@ -135,8 +135,9 @@ const Browse = () => {
         className='w-[30%] rounded-full bg-white h-8 focus:outline-none pl-5 ml-[35%] pr-5'/>
       </div>
 
-    <div className='flex flex-row flex-wrap space-x-4 space-y-8 h-full mx-12'
-    style={{ overflowX: 'hidden', overflowY: 'auto' }}
+    <div className='flex flex-row  flex-wrap space-x-4 space-y-8 h-full mx-12'
+    // style={{ overflowX: 'hidden', overflowY: 'auto' }}
+    
     >
       <br/>
     {
@@ -173,8 +174,8 @@ const Browse = () => {
                 {/*header*/}
                 <div className="flex mx-auto  ">
                   <div className='flex flex-col items-start mx-auto'>
-                  <img src={focus.image} className='w-3/4 h-auto  bg-zinc-800 p-2 rounded-3xl'/>
-                  <h3 className="text-4xl font-extrabold text-pink-500">
+                  <img src={focus.image} className='w-3/4 h-auto  bg-zinc-800 p-2 rounded-3xl mx-auto'/>
+                  <h3 className="text-4xl font-extrabold text-pink-500 my-2 text-center">
                     {focus.name}
                   </h3>
                   </div>
@@ -204,9 +205,12 @@ const Browse = () => {
                   <h4 className='text-white font-semibold text-md'><span className='text-pink-500 font-bold'>Tournament Begins At:</span>{focus.startdate.substring(0,10)} </h4>
                 </div>
                 {/*footer*/}
-                <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+                <div className="flex items-center justify-end p-6 rounded-b">
                   <button
-                    className="text-red-500 bg-zinc-800 rounded-full font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    className="text-red-500 bg-zinc-900 
+                    rounded-full font-extrabold uppercase px-6 
+                    py-2 text-sm outline-none focus:outline-none
+                    mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => setShowModal(false)}
                   >

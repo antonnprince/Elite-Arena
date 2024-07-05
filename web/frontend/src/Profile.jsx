@@ -82,28 +82,28 @@ useEffect(() => {
    '>
           <h1 className='text-white text-3xl font-bold'><span className='text-pink-500'>Your</span> Profile</h1>
         <div className='bg-zinc-900 rounded-3xl p-4 flex flex-row'>
-          
                 <img src={user.photoURL} className='w-1/6 h-1/5 rounded-3xl'/>
 
-                <div className='flex flex-col'>
-                    <h1 className='text-2xl text-white font-semibold mt-2 mx-12'>Name: {user.displayName}</h1>
-                    <br />
+                <div className='flex flex-col my-4'>
+                    <h1 className='text-2xl text-white font-semibold mt-2 mx-12'>
+                      <span className='text-pink-500 font-bold'>Name:</span> {user.displayName}</h1>
+                   
 
-                    <h2 className='text-2xl text-white font-semibold my-2 mx-12'><span className='text-pink-500'>
-                    Registered Tournaments:
+                    <h2 className='text-2xl text-white font-semibold my-2 mx-12'><span className='font-bold text-pink-500'>
+                   Total Registered Tournaments:
                     </span>
                     {part.length}
                     </h2>
 
-                    <h2 className='text-2xl text-white font-semibold my-2 mx-12'><span className='text-pink-500'>
-                    Organized Tournaments:
+                    <h2 className='text-2xl text-white font-semibold my-2 mx-12'><span className='font-bold text-pink-500'>
+                    Total Organized Tournaments:
                     </span>
                     {events.length}
                     </h2>
                 </div> 
         </div> 
 
-        <div className='bg-zinc-900 px-24 py-4 rounded-3xl'>
+        <div className='bg-zinc-900 px-24 py-4 rounded-3xl '>
         <h1 className='text-white font-bold text-4xl'>Tournaments <span className='text-pink-400'>Organized</span></h1>
         {
           events.length===0?
@@ -111,16 +111,23 @@ useEffect(() => {
           :(
             <>
               {
-                events.map((tournament)=>{
+                events.map((tournament)=>{  
                   return(
                     <>
+                    <p className='text-white text-lg my-4'>
+                    Welcome to your hub for all the tournaments you have organized. Here, you can track and manage your past and upcoming events, ensuring every detail is at your fingertips. Whether it's a small community gathering or a large-scale competitive event, this section will keep you updated and in control.
+                    Given below are the tournaments you've organized.
+                    </p>
                       <button
                       key={tournament._id}
                       onClick={() => {
                       setShowModal(true),
                       setFocus(tournament)
                       }}
-                      className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      className="bg-pink-500 text-white
+                      my-2 
+                      bg-pink-600 font-bold uppercase text-sm px-4 py-2 rounded-full
+                        "
                       >{tournament.name}</button>
                     </>
                     )
@@ -224,7 +231,7 @@ useEffect(() => {
             </>
           )
         }
-        <button className='bg-pink-500 text-white text-center px-4 py-2 font-bold rounded-full mx-[500px]'>
+        <button className='bg-pink-500 rounded-xl font-bold text-center px-4 py-2 text-white mx-[400px]'>
           <Link to="/create">
             Start Tournament
           </Link>
@@ -238,20 +245,23 @@ useEffect(() => {
           part.length===0?
           <p className='text-white text-lg'>You currently have no tournaments going on</p>
           :(
-            <>
+            <div className='mx-2 font-light text-sm my-4'>
+              <p className='text-white text-lg my-4'>
+              Welcome to your personal dashboard for all the tournaments you have registered for. Stay up-to-date with all the important details and manage your participation effortlessly. Whether you’re gearing up for your next big match or checking on your past performances, this section has everything you need.
+              </p>
               {
-                part.map((each)=>{
+                part.map((each,index)=>{
                   return(
                     <>
-                     <h1 className='text-white font-semibold text-2xl'>{each.name}</h1>
+                     <h1 className='text-white font-semibold text-2xl'><span className='font-extrabold mr-2'>{index+1}.</span>{each.name}</h1>
                     </>
                   )
                 })
               }
-            </>
+            </div>
           )
         }
-        <button className='bg-pink-500 text-white text-center px-4 py-2 font-bold rounded-full mx-[500px]'>
+        <button className='bg-pink-500 rounded-xl font-bold text-center px-4 py-2 text-white mx-[400px]'>
         <Link to="/browse">Join Tournament</Link>
         
         </button>

@@ -25,7 +25,7 @@ const Home = () => {
   return (
     <>
    <div className='bg-zinc-800 rounded-3xl px-8 py-4 h-auto
-   flex flex-col space-y-8
+   flex flex-col space-y-8 overflow-x-hidden
    '>
       <div className='bg-[url("src/images/banner-bg.jpg")]
       bg-no-repeat bg-cover rounded-3xl
