@@ -172,10 +172,10 @@ const Browse = () => {
               <div className="border-0 rounded-lg shadow-lg bg-zinc-800 relative flex flex-col 
               bg-zinc-800 outline-none focus:outline-none">
                 {/*header*/}
-                <div className="flex mx-auto  ">
+                <div className="flex items-start justify-between p-5">
                   <div className='flex flex-col items-start mx-auto'>
-                  <img src={focus.image} className='w-3/4 h-auto  bg-zinc-800 p-2 rounded-3xl mx-auto'/>
-                  <h3 className="text-4xl font-extrabold text-pink-500 my-2 text-center">
+                  <img src={focus.image} className='w-3/4 h-42 bg-zinc-800 p-4 rounded-3xl'/>
+                  <h3 className="text-3xl font-bold text-pink-500">
                     {focus.name}
                   </h3>
                   </div>
@@ -190,7 +190,7 @@ const Browse = () => {
                 </div>
                 {/*body*/}
                 <div className="relative bg-zinc-800 text-white mx-4 rounded-3xl">
-                  <p className="my-4 text-blueGray-500 text-md font-semibold leading-relaxed flex flex-col">
+                  <p className="my-4 text-blueGray-500 text-lg leading-relaxed flex flex-col">
                     {focus.description}
                   </p>
                   <h4 className='text-white font-semibold text-md'><span className='text-pink-500 font-bold'>Max teams allowed:</span>{focus.maxteams} </h4>
