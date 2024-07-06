@@ -118,6 +118,7 @@ useEffect(() => {
                     Welcome to your hub for all the tournaments you have organized. Here, you can track and manage your past and upcoming events, ensuring every detail is at your fingertips. Whether it's a small community gathering or a large-scale competitive event, this section will keep you updated and in control.
                     Given below are the tournaments you've organized.
                     </p>
+                    <div className='flex flex-col w-1/4 mx-auto mb-2'>
                       <button
                       key={tournament._id}
                       onClick={() => {
@@ -129,6 +130,8 @@ useEffect(() => {
                       bg-pink-600 font-bold uppercase text-sm px-4 py-2 rounded-full
                         "
                       >{tournament.name}</button>
+
+                      </div>
                     </>
                     )
                 })
@@ -230,7 +233,7 @@ useEffect(() => {
             </>
           )
         }
-        <button className='bg-pink-500 rounded-xl font-bold text-center px-4 py-2 text-white mx-[400px]'>
+        <button className='bg-pink-500 rounded-xl font-bold text-center px-4 py-2 text-white mx-[450px]'>
           <Link to="/create">
             Start Tournament
           </Link>

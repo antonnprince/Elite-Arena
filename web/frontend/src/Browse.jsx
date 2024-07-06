@@ -239,19 +239,20 @@ const Browse = () => {
                   {
                     showCreate &&
                     <>
-                      <div className="justify-center items-center flex bg-zinc-800 overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+                      <div className="flex bg-zinc-800 overflow-x-hidden 
+                      overflow-y-auto mb-2 fixed inset-0 z-50 outline-none focus:outline-none">
                         <div className="relative w-auto my-6 mx-auto max-w-3xl bg-zinc-800">
                           
-                               <div className="border-0 rounded-lg shadow-lg bg-zinc-800 relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                                <div className=' font-normal p-10 space-y-2 space-x-4'>
-                                 <h2 className='text-3xl font-normal text-  ml-4'>Team Name<span className='text-pink-500'>*</span></h2>
-                                  <input required type='text' className='px-8 py-2 border border-black-500 focus:border-black focus:outline-none rounded-full' onChange={(e) => {setTeamname(e.target.value);console.log(each.ppt)}} />
+                               <div className="border-0 rounded-lg shadow-lg  bg-zinc-800 relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                                <div className=' font-normal p-10 space-y-2 mx-auto space-x-4'>
+                                 <h2 className='text-3xl font-semibold text-black  ml-4'>Team Name<span className='text-pink-500'>*</span></h2>
+                                  <input required type='text' className='w-full p-1 text-sm border-1 border-pink-500 focus:border-black focus:outline-none  rounded-full' onChange={(e) => {setTeamname(e.target.value);console.log(each.ppt)}} />
                                   {Array.from({ length: parseInt(selected.ppt)-1 }, (_, index) => (
                                     <>
-                                  <h2 className='text-3xl font-normal text-black  ml-4'>Team Member <span className='text-pink-500'>*</span></h2>
-                                  <input required type='text' className='px-8 border border-black-500 focus:border-black focus:outline-none py-2 rounded-full' onChange={(e) => setMembers([...members.slice(0, index), e.target.value, ...members.slice(index + 1)]) } />
+                                    <h2 className='text-3xl font-semibold text-black  ml-4'>Team Member <span className='text-pink-500'>*</span></h2>
+                                    <input required type='text' className='w-full p-1 text-sm border-1 border-pink-500 focus:border-black focus:outline-none  rounded-full' onChange={(e) => setMembers([...members.slice(0, index), e.target.value, ...members.slice(index + 1)]) } />
                                   </>
-                                ))}
+                                   ))}
                                 </div>
                                 <div className='flex flex-row mx-auto'>
                                 <button
